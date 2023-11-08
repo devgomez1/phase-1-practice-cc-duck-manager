@@ -25,17 +25,24 @@ function displayDuck(duck) {
   image.src = duck.img_url;
 
   let likes = document.getElementById("duck-display-likes");
-  likes.textContent = `Liked by ${duck.likes} people`;
+  likes.textContent = `${duck.likes} Likes`;
+
+  let count = duck.likes;
 
   likes.addEventListener("click", function () {
-    handleLikes(duck);
+    count++;
+    likes.textContent = `${count} Likes`;
   });
 }
 
-function handleLikes(duck) {
-  let likes = document.getElementById("duck-display-likes");
-  let currentNumber = Number(duck.likes);
-  currentNumber++;
+let form = document.getElementById("new-duck-form");
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
 
-  likes.textContent = `Liked by ${currentNumber} people`;
-}
+  let newduck = {
+    name: e.target["duck-name-input"].value,
+    img_url: e.target["duck-image-input"].value,
+    likes: 0,
+  };
+  displayImages(newduck);
+});
